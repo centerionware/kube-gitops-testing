@@ -21,9 +21,8 @@ spec:
     allowedAuthorAssociations:
       - OWNER
       - MEMBER
-      - COLLABORATOR
-      - CONTRIBUTOR
-      - FIRST_TIME_CONTRIBUTOR
+    allowCommentTrigger: true
+    commentTriggerPhrase: "/deploy"
 
   notify:
     onDeploy: true
@@ -43,14 +42,13 @@ spec:
     ingressHostTemplate: "kube-gitops-testing-pr-{{.PRNumber}}.centerionware.com"
     injectPREnv: true
 
-    ingress:
-      enabled: true
-      className: cloudflare-tunnel
-
     run:
       port: 80
       replicas: 1
       command: ["nginx", "-g", "daemon off;"]
       healthCheck:
         path: /
-      
+
+    ingress:
+      enabled: true
+      className: cloudflare-tunnel
