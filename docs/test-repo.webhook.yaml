@@ -1,5 +1,5 @@
 # ============================================================
-# Test GitRepo â€” webhook mode
+# Test GitRepo webhook mode
 # Requires: kube-gitops-testing-secret (see test-secret-apply.sh)
 #           kube-gitops-testing-webhook-secret (see below)
 # Commit this file. It has no secrets in it.
@@ -22,9 +22,6 @@ spec:
     allowedAuthorAssociations:
       - OWNER
       - MEMBER
-      - COLLABORATOR
-      - CONTRIBUTOR
-      - FIRST_TIME_CONTRIBUTOR
     allowCommentTrigger: true
     commentTriggerPhrase: "/deploy"
 
@@ -33,12 +30,12 @@ spec:
     onError: true
     onClose: false
     deployTemplate: |
-      ðŸš€ Preview deployed: {{.URL}}
+      Preview deployed: {{.URL}}
 
       Branch: `{{.Branch}}`
       Commit: `{{.SHA}}`
     errorTemplate: |
-      âŒ Preview deployment failed for `{{.Branch}}`: {{.Error}}
+      Preview deployment failed for `{{.Branch}}`: {{.Error}}
 
   prDeploy:
     namespace: kube-gitops-testing-previews
