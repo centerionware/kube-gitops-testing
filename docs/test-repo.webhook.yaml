@@ -25,6 +25,8 @@ spec:
       - COLLABORATOR
       - CONTRIBUTOR
       - FIRST_TIME_CONTRIBUTOR
+    allowCommentTrigger: true
+    commentTriggerPhrase: "/deploy"
 
   notify:
     onDeploy: true
@@ -36,7 +38,7 @@ spec:
       Branch: `{{.Branch}}`
       Commit: `{{.SHA}}`
     errorTemplate: |
-       Preview deployment failed for `{{.Branch}}`: {{.Error}}
+      âŒ Preview deployment failed for `{{.Branch}}`: {{.Error}}
 
   prDeploy:
     namespace: kube-gitops-testing-previews
@@ -50,6 +52,7 @@ spec:
       command: ["nginx", "-g", "daemon off;"]
       healthCheck:
         path: /
+
     ingress:
       enabled: true
       className: cloudflare-tunnel
